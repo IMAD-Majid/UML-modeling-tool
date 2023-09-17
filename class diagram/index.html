@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Class Diagram</title>
+		<style>
+		* {
+			font-family:consolas;
+			background-color:black;
+			color:white;
+		}
+		input, button, select{
+			border:2px solid grey;
+			border-radius:1em;
+			padding:0.2em 1em;
+		}
+		button#creation-button{
+			border-color:grey;
+			color:black;
+			background-color:lightgrey;
+		}
+		input{
+			border-bottom-color:cyan;
+		}
+		select{
+			border-color:pink;
+		}
+		hr{
+			background-color:grey;
+			height:1px;
+			border:none;
+		}
+		span.item{
+			padding-right:4em;
+		}
+		</style>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td>
+				<div>
+					<select id="selected-class-diagram">
+					</select>
+					<input type="range" min="0" max="100">
+					<input type="range" min="0" max="100">
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<div>
+					<div>
+						<input id="class-name-input" placeholder="Class name">
+					</div>
+					<div>
+						<div>
+							<hr>
+							<input id="class-attribute-input" placeholder="Attribute">
+							<button onclick="createItem('attribute')"> + </button>
+						</div>
+						<div>
+							<h4>Attributes</h4>
+							<ul id="class-attributes-list">
+							</ul>
+						</div>
+					</div>
+					<div>
+						<div>
+							<hr>
+							<input id="class-method-input" placeholder="Method">
+							<button onclick="createItem('method')"> + </button>
+						</div>
+						<div>
+							<h4>Methods</h4>
+							<ul id="class-methods-list">
+							</ul>
+						</div>
+					</div>
+					<div>
+						<div>
+							<hr>
+							<select id="class-inheritance-menu">
+							</select>
+							<button onclick="createItem('inheritance')"> + </button>
+						</div>
+						<div>
+							<h4>Inheritances</h4>
+							<ul id="class-inheritances-list">
+							</ul>
+						</div>
+					</div>
+					<div>
+						<hr>
+						<button onclick="createClass()" id="creation-button">Create Class</button>
+						<hr>
+					</div>
+					<div>
+						<h4>Classes</h4>
+						<ul id="created-classes-list">
+						</ul>
+					</div>
+				</div>
+				</td>
+				<td>
+					<canvas width="1000px" height="560px" style="border:2px solid red"></canvas>
+					<script>
+						var canvas = document.querySelector("canvas");
+						var xmax = canvas.offsetWidth;
+						var ymax = canvas.offsetHeight;
+
+						let rangeInputs = document.querySelectorAll("input[type=range]");
+
+						rangeInputs[0].setAttribute("max", xmax)
+						rangeInputs[0].addEventListener("input", (e)=>{
+							let selectedClass = document.getElementById("selected-class-diagram").value;
+							if (selectedClass == ''){return}
+							data[selectedClass].x = Number(e.target.value)
+							console.log(e.target.value)
+							localStorage.setItem("UMLClassDiagramData", JSON.stringify(data));
+
+							updateDiagram()
+						})
+						rangeInputs[1].setAttribute("max", ymax)
+						rangeInputs[1].addEventListener("input", (e)=>{
+							let selectedClass = document.getElementById("selected-class-diagram").value;
+							if (selectedClass == ''){return}
+							data[selectedClass].y = Number(e.target.value)
+							localStorage.setItem("UMLClassDiagramData", JSON.stringify(data));
+
+							updateDiagram()
+						})
+					</script>
+				</td>
+			</tr>
+		</table>
+		<script src="script.js"></script>
+	</body>
+</html>
