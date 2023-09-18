@@ -1,10 +1,12 @@
+[Model a class diagram](https://keen-naiad-198d86.netlify.app/)
+
 # TOC
 - [Diagramme de classes](#diagramme-de-classes)
 
 # UML-editor
 
-# Exercice
-## Dossier 2 : Modélisation orientée objet (14 pts)
+## Exercice
+### Dossier 2 : Modélisation orientée objet (14 pts)
 
 La TBOURIDA ou Fantasia est un art équestre traditionnel et fait partie de l’identité culturelle Marocaine. Elle se pratique, en général, pour célébrer certaines fêtes nationales ou religieuses annuelles.
 
@@ -26,6 +28,6 @@ L’application sera exploitée par plusieurs types d’utilisateurs :
 2. Développer le diagramme de séquence du cas d’utilisation « saisir le planning ». (4pts)
 3. Construire le diagramme de classes. (5 pts)
 
-### Diagramme de classes
+#### Diagramme de classes
 
 ![Capture](https://github.com/IMAD-Majid/UML-editor/assets/137281672/b7fede3a-a581-4ea7-b34a-3dd843017156)
