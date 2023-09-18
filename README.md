@@ -1,4 +1,5 @@
-[Model a class diagram](https://keen-naiad-198d86.netlify.app/)
+# Links
+- [Model a class diagram](https://keen-naiad-198d86.netlify.app/)
 
 # TOC
 - [Diagramme de classes](#diagramme-de-classes)
