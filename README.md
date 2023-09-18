@@ -1,10 +1,9 @@
 # Links
 - [Model a class diagram](https://keen-naiad-198d86.netlify.app/)
 
+
 # TOC
 - [Diagramme de classes](#diagramme-de-classes)
-
-# UML-editor
 
 ## Exercice
 ### Dossier 2 : Modélisation orientée objet (14 pts)
