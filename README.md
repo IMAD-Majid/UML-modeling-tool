@@ -1,3 +1,6 @@
+# TOC
+- [Diagramme de classes](#diagramme-de-classes)
+
 # UML-editor
 
 # Exercice
