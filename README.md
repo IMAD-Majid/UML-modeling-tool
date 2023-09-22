@@ -34,5 +34,9 @@ L’application sera exploitée par plusieurs types d’utilisateurs :
 
 ![Capture](https://github.com/IMAD-Majid/UML-editor/assets/137281672/b7fede3a-a581-4ea7-b34a-3dd843017156)
 
-remove: Assiste
-add  : Race, Region
+Remove:
+- Assiste
+
+Add:
+- Race
+- Region
