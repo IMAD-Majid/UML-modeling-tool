@@ -2,6 +2,10 @@
 
 # TOC
 - [Diagramme de classes](#diagramme-de-classes)
+- sequence
+- use case
+- Python GUI
+- HTML GUI
 
 ## Exercice
 ### Dossier 2 : Modélisation orientée objet (14 pts)
