@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Class Diagram</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td>
+				<div>
+					<div>
+						<input id="class-name-input" placeholder="Class name">
+					</div>
+					<div>
+						<div>
+							<hr>
+							<h4>Attributes</h4>
+							<input id="class-attribute-input" placeholder="Attribute">
+							<button onclick="createItem('attribute')"> + </button>
+						</div>
+						<div>
+
+							<ul id="class-attributes-list">
+							</ul>
+						</div>
+					</div>
+					<div>
+						<div>
+							<hr>
+							<h4>Methods</h4>
+							<input id="class-method-input" placeholder="Method">
+							<button onclick="createItem('method')"> + </button>
+						</div>
+						<div>
+
+							<ul id="class-methods-list">
+							</ul>
+						</div>
+					</div>
+					<div>
+						<div>
+							<hr>
+							<h4>Inheritances</h4>
+							<select id="class-inheritance-menu">
+							</select>
+							<button onclick="createItem('inheritance')"> + </button>
+						</div>
+						<div>
+
+							<ul id="class-inheritances-list">
+							</ul>
+						</div>
+					</div>
+					<div>
+						<hr>
+						<h4>Classes</h4>
+						<button onclick="createClass()" id="creation-button">Create Class</button>
+						<hr>
+					</div>
+					<div>
+
+						<ul id="created-classes-list">
+						</ul>
+					</div>
+				</div>
+				</td>
+				<td>
+					<canvas width="1000px" height="560px" style="border:1px solid white;"></canvas>
+					<script>
+						var canvas = document.querySelector("canvas");
+						var xmax = canvas.offsetWidth;
+						var ymax = canvas.offsetHeight;
+					</script>
+				</td>
+			</tr>
+		</table>
+		<div id="export-import">
+			<button id="copyJSON" onclick="copyJSON()">Copy JSON</button>
+			<button onclick="updateClipboardReader()">Read Copied</button>
+			<button id="pasteJSON" onclick="pasteJSON()">Replace with Copied JSON</button>
+		</div>
+		<p id="clipboard-content"></p>
+		<script src="main.js"></script>
+	</body>
+</html>
