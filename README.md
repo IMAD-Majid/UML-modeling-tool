@@ -32,6 +32,9 @@ L’application sera exploitée par plusieurs types d’utilisateurs :
 3. Construire le diagramme de classes. (5 pts)
 
 #### Diagramme des cas d'utilisation
+- Red : include
+- Blue: extend
+
 ![Capture](https://github.com/IMAD-Majid/UML-modeling-tool/assets/137281672/8f2c000e-75ad-4e21-8ca7-326a97b7b7ee)
 
 **JSON**:
