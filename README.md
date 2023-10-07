@@ -31,12 +31,9 @@ L’application sera exploitée par plusieurs types d’utilisateurs :
 3. Construire le diagramme de classes. (5 pts)
 
 #### Diagramme de classes
+![Capture](https://github.com/IMAD-Majid/UML-modeling-tool/assets/137281672/ea9c508e-dd35-4b23-8903-c9dc379fd0b3)
 
-![Capture](https://github.com/IMAD-Majid/UML-editor/assets/137281672/b7fede3a-a581-4ea7-b34a-3dd843017156)
-
-Remove:
-- Assiste
-
-Add:
-- Race
-- Region
+JSON:
+```
+{"Troupe":{"name":"Troupe","attributes":["region","cavallers : list","chevaux : list"],"methods":[],"inheritances":[],"x":18.34375,"y":430,"width":180,"height":112},"Region":{"name":"Region","attributes":["nom"],"methods":[],"inheritances":[],"x":777.34375,"y":23,"width":180,"height":80},"Race":{"name":"Race","attributes":["nom"],"methods":[],"inheritances":[],"x":778.34375,"y":120,"width":180,"height":80},"Plan":{"name":"Plan","attributes":["cavalier","monture : Cheval","journee"],"methods":[],"inheritances":[],"x":34.34375,"y":207,"width":180,"height":112},"Cheval":{"name":"Cheval","attributes":["race","age","nombre"],"methods":[],"inheritances":[],"x":438.34375,"y":433,"width":180,"height":112},"Cavalier":{"name":"Cavalier","attributes":["nom","prenom","date de naissance","sexe"],"methods":["changeMonture"],"inheritances":[],"x":238.34375,"y":405,"width":180,"height":144},"User":{"name":"User","attributes":["email","password","role"],"methods":[],"inheritances":[],"x":396.34375,"y":14,"width":180,"height":112},"Internaut":{"name":"Internaut","attributes":[],"methods":["afficheInfoDeTroupe","affichePlanning"],"inheritances":["User"],"x":527.34375,"y":243,"width":180,"height":96},"responsableInscription":{"name":"responsableInscription","attributes":[],"methods":["introduitTroupe"],"inheritances":["User"],"x":119.34375,"y":48,"width":180,"height":80},"Admin":{"name":"Admin","attributes":[],"methods":["gererUtilisateurs","gererRaces","gererRegions","gererRoles"],"inheritances":["User"],"x":783.34375,"y":247,"width":180,"height":128},"responsableProgrammation":{"name":"responsableProgrammation","attributes":[],"methods":["gererPlanning"],"inheritances":["User"],"x":279.34375,"y":181,"width":180,"height":80}}
+```
