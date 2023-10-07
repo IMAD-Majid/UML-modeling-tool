@@ -16,11 +16,14 @@ function updateClipboardReader(){
 	.then(content => {
 		clipboardReaderElm.textContent = content;
 	})
+	.catch(err => {
+		clipboardReaderElm.textContent = "Error: " + err;
+	})
 }
 
 var ctx = canvas.getContext("2d");
 ctx.font = "16px consolas";
-ctx.lineWidth = 2
+ctx.lineWidth = 1
 
 const diagramWidth = 180
 const inlineSpace = 16;
@@ -265,8 +268,8 @@ function drawArrow(x, y){
 function updateDiagram(){
 	ctx.fillStyle = "#111"
 	ctx.fillRect(0, 0, xmax, ymax)
-	ctx.fillStyle = "white"
-	ctx.strokeStyle = "white"
+	ctx.fillStyle = "#ddd"
+	ctx.strokeStyle = "#ddd"
 	for (let classObj of Object.values(data)){
 		let classX = classObj.x
 		let classY = classObj.y
@@ -312,7 +315,7 @@ function updateDiagram(){
 				ctx.strokeStyle = "cyan";
 				drawLine(classX+diagramWidth/2, classY, data[inheritance].x+diagramWidth/2, data[inheritance].y)
 				drawArrow(data[inheritance].x+diagramWidth/2, data[inheritance].y)
-				ctx.strokeStyle = "white";
+				ctx.strokeStyle = "#ddd";
 			}
 		}
 		classObj.height = height - classY;
