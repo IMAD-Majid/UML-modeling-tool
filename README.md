@@ -1,9 +1,10 @@
 [Class Diagram Modeling Tool](https://simple-class-diagram-modeling-tool.netlify.app)
+[Use Case Diagram Modeling Tool](https://simple-use-case-diagram-modeling-tool.netlify.app)
 
 # TOC
+- [Diagramme des cas d'utilisation](#diagramme-des-cas-dutilisation)
 - [Diagramme de classes](#diagramme-de-classes)
 - sequence
-- use case
 - Python GUI
 - HTML GUI
 
@@ -30,10 +31,18 @@ L’application sera exploitée par plusieurs types d’utilisateurs :
 2. Développer le diagramme de séquence du cas d’utilisation « saisir le planning ». (4pts)
 3. Construire le diagramme de classes. (5 pts)
 
+#### Diagramme des cas d'utilisation
+![Capture](https://github.com/IMAD-Majid/UML-modeling-tool/assets/137281672/8f2c000e-75ad-4e21-8ca7-326a97b7b7ee)
+
+**JSON**:
+```
+{"systemName":"Tbourida","actors":[{"name":"Internaut","usecases":["affiche info de Troupe","affiche Planning"],"x":2,"y":32,"width":160,"height":96},{"name":"responsable Inscription","usecases":["introduit Troupe"],"x":27,"y":121,"width":160,"height":96},{"name":"responsable Programmation","usecases":["gerer Planning"],"x":26,"y":223,"width":160,"height":96},{"name":"Cavalier","usecases":["change Monture"],"x":-35,"y":405,"width":160,"height":96},{"name":"Admin","usecases":["gerer Races","gerer Regions","gerer Utilisateurs"],"x":79,"y":472,"width":160,"height":96}],"cases":[{"name":"gerer Races","inclusions":[],"extensions":[],"x":720,"y":451,"width":160,"height":32},{"name":"gerer Regions","inclusions":[],"extensions":[],"x":809,"y":353,"width":160,"height":32},{"name":"gerer Utilisateurs","inclusions":[],"extensions":[],"x":485,"y":503,"width":160,"height":32},{"name":"gerer Roles","inclusions":["gerer Utilisateurs"],"extensions":[],"x":412,"y":332,"width":160,"height":32},{"name":"change Monture","inclusions":["introduit Troupe"],"extensions":[],"x":791,"y":216,"width":160,"height":32},{"name":"affiche info de Troupe","inclusions":["introduit Troupe"],"extensions":[],"x":377,"y":78,"width":160,"height":32},{"name":"affiche Planning","inclusions":["gerer Planning"],"extensions":[],"x":597,"y":46,"width":160,"height":32},{"name":"gerer Planning","inclusions":["gerer Roles"],"extensions":[],"x":313,"y":199,"width":160,"height":32},{"name":"introduit Troupe","inclusions":["gerer Roles","gerer Regions","gerer Races"],"extensions":[],"x":548,"y":207,"width":160,"height":32}]}
+```
+
 #### Diagramme de classes
 ![Capture](https://github.com/IMAD-Majid/UML-modeling-tool/assets/137281672/ea9c508e-dd35-4b23-8903-c9dc379fd0b3)
 
-JSON:
+**JSON**:
 ```
 {"Troupe":{"name":"Troupe","attributes":["region","cavallers : list","chevaux : list"],"methods":[],"inheritances":[],"x":18.34375,"y":430,"width":180,"height":112},"Region":{"name":"Region","attributes":["nom"],"methods":[],"inheritances":[],"x":777.34375,"y":23,"width":180,"height":80},"Race":{"name":"Race","attributes":["nom"],"methods":[],"inheritances":[],"x":778.34375,"y":120,"width":180,"height":80},"Plan":{"name":"Plan","attributes":["cavalier","monture : Cheval","journee"],"methods":[],"inheritances":[],"x":34.34375,"y":207,"width":180,"height":112},"Cheval":{"name":"Cheval","attributes":["race","age","nombre"],"methods":[],"inheritances":[],"x":438.34375,"y":433,"width":180,"height":112},"Cavalier":{"name":"Cavalier","attributes":["nom","prenom","date de naissance","sexe"],"methods":["changeMonture"],"inheritances":[],"x":238.34375,"y":405,"width":180,"height":144},"User":{"name":"User","attributes":["email","password","role"],"methods":[],"inheritances":[],"x":396.34375,"y":14,"width":180,"height":112},"Internaut":{"name":"Internaut","attributes":[],"methods":["afficheInfoDeTroupe","affichePlanning"],"inheritances":["User"],"x":527.34375,"y":243,"width":180,"height":96},"responsableInscription":{"name":"responsableInscription","attributes":[],"methods":["introduitTroupe"],"inheritances":["User"],"x":119.34375,"y":48,"width":180,"height":80},"Admin":{"name":"Admin","attributes":[],"methods":["gererUtilisateurs","gererRaces","gererRegions","gererRoles"],"inheritances":["User"],"x":783.34375,"y":247,"width":180,"height":128},"responsableProgrammation":{"name":"responsableProgrammation","attributes":[],"methods":["gererPlanning"],"inheritances":["User"],"x":279.34375,"y":181,"width":180,"height":80}}
 ```
