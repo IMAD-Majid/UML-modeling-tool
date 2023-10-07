@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Use Case Diagram</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td colspan="2">
+					<canvas width="1200px" height="620px" style="border:1px solid white;"></canvas>
+					<script>
+						var canvas = document.querySelector("canvas");
+						var xmax = canvas.offsetWidth;
+						var ymax = canvas.offsetHeight;
+					</script>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="margin:2em auto;width:min-content;min-width: 20em;">
+						<input id="system-name-input" placeholder="System Name" value="System">
+						<button onclick="renameSystem()">Rename</button>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<div>
+					<div>
+						<input id="actor-name-input" placeholder="Actor name">
+					</div>
+					<div>
+						<div>
+							<hr>
+							<h4>Use Cases</h4>
+							<select id="actor-usecase-menu">
+							</select>
+							<button onclick="createItem('usecase')"> + </button>
+						</div>
+						<div>
+							<ul id="created-usecases-list">
+							</ul>
+						</div>
+					</div>
+					<div>
+						<hr>
+						<h4>Actors</h4>
+						<button onclick="createActor()" id="creation-button">Create Actor</button>
+						<hr>
+					</div>
+					<div>
+						<ul id="created-actors-list">
+						</ul>
+					</div>
+				</div>
+				</td>
+				<td>
+					<div>
+						<div>
+							<input id="case-name-input" placeholder="Case name">
+						</div>
+						<div>
+						<div>
+							<div>
+								<hr>
+								<h4>Inclusions</h4>
+								<select id="case-inclusion-menu">
+								</select>
+								<button onclick="createItem('inclusion')"> + </button>
+							</div>
+							<div>
+								<ul id="created-inclusions-list">
+								</ul>
+							</div>
+						</div>
+						<div>
+							<div>
+								<hr>
+								<h4>Extensions</h4>
+								<select id="case-extension-menu">
+								</select>
+								<button onclick="createItem('extension')"> + </button>
+							</div>
+							<div>
+								<ul id="created-extensions-list">
+								</ul>
+							</div>
+						</div>
+						<div>
+							<hr>
+							<h4>Cases</h4>
+							<button onclick="createCase()" id="creation-button">Create Case</button>
+							<hr>
+						</div>
+						<div>
+							<ul id="created-cases-list">
+							</ul>
+						</div>
+					</div>
+					</td>
+				</tr>
+		</table>
+		<div id="export-import">
+			<button id="copyJSON" onclick="copyJSON()">Copy JSON</button>
+			<button onclick="updateClipboardReader()">Read Copied</button>
+			<button id="pasteJSON" onclick="pasteJSON()">Replace with Copied JSON</button>
+		</div>
+		<p id="clipboard-content"></p>
+		<script src="main.js"></script>
+	</body>
+</html>
