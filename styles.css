@@ -1,0 +1,66 @@
+* {
+    font-family:consolas;
+    background-color:#333;
+    color:white;
+}
+
+body{
+    margin:2em;
+    margin-bottom:6em;
+}
+
+table {
+    margin:0 auto;
+}
+
+table tr{
+    vertical-align: top;
+}
+
+input, button, select{
+    border:2px solid grey;
+    padding:0.2em 1em;
+}
+button#creation-button{
+    border-color:grey;
+    color:black;
+    background-color:lightgrey;
+}
+input{
+    border-bottom-color:cyan;
+}
+
+select{
+    border-color:pink;
+}
+
+hr{
+    background-color:grey;
+    height:1px;
+    border:none;
+}
+
+span.item{
+    padding-left:1em;
+}
+
+ul {
+    list-style-type:none;
+    padding:0;
+}
+li{
+    display:flex;
+    justify-content: space-between;
+}
+li:nth-child(even), li:nth-child(even) *{
+    background-color: #444;
+}
+
+#export-import{
+    margin-top:4em;
+    display:flex;
+    justify-content: space-between;
+}
+#export-import button{
+    padding:1em 2em;
+}
