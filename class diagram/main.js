@@ -6,7 +6,16 @@ class UMLClass{
 		this.inheritances = []
 		this.x = 0
 		this.y = 0
+		this.width = diagramWidth;
+		this.height = 0;
 	}
+}
+let clipboardReaderElm = document.getElementById("clipboard-content");
+function updateClipboardReader(){
+	navigator.clipboard.readText()
+	.then(content => {
+		clipboardReaderElm.textContent = content;
+	})
 }
 
 var ctx = canvas.getContext("2d");
@@ -23,16 +32,76 @@ if (data == null){
 	data = {}
 }
 
-var classNames = [];
+dataRefreshed();
 
-for (let className of Object.keys(data)){
-	classNames.push(className)
-	document.getElementById("class-name-input").value = className
-	createItem("class")
+function dataRefreshed(){
+	classNames = [];
+	selectedClass = null;
+	document.getElementById("created-classes-list").innerHTML = '';
+	for (let className of Object.keys(data)){
+		classNames.push(className)
+		document.getElementById("class-name-input").value = className
+		createItem("class")
+	}
+	emptyEntries();
+	adoptDataChanges()
 }
 
-adoptDataChanges()
+canvas.addEventListener("click", (e)=>{
+	if (selectedClass == null){
+		let canvasX = canvas.getBoundingClientRect().left;
+		let canvasY = canvas.getBoundingClientRect().top;
+		mouseX = e.clientX - canvasX;
+		mouseY = e.clientY - canvasY;
+		if (mouseX > 0 && mouseY > 0 && mouseX < xmax && mouseY < ymax){
+			for (let classObj of Object.values(data)){
+				if (mouseX > classObj.x && mouseY > classObj.y && mouseX < (classObj.x + classObj.width) && mouseY < (classObj.y + classObj.height)){
+					selectedClass = classObj;
+					break;
+				}
+			}
+		}
+	} else{
+		selectedClass = null;
+	}
+})
 
+canvas.addEventListener("mousemove", (e)=>{
+	if (selectedClass != null){
+		let canvasX = canvas.getBoundingClientRect().left;
+		let canvasY = canvas.getBoundingClientRect().top;
+		mouseX = e.clientX - canvasX;
+		mouseY = e.clientY - canvasY;
+		if (mouseX > 0 && mouseY > 0 && mouseX < xmax && mouseY < ymax){
+			selectedClass.x = mouseX - selectedClass.width/2;
+			selectedClass.y = mouseY - selectedClass.height/2;
+			saveData();
+			updateDiagram();
+		}
+	}
+})
+
+document.querySelectorAll("#export-import button").forEach(btn => {
+	btn.addEventListener("click", (e)=>{
+		e.target.style.backgroundColor = "#999";
+		e.target.style.color = "black";
+		setTimeout(()=>{
+			e.target.style.backgroundColor = '';
+			e.target.style.color = '';
+		}, 2000);
+	})
+})
+
+function copyJSON(){
+	navigator.clipboard.writeText(JSON.stringify(data));
+}
+
+function pasteJSON(){
+	navigator.clipboard.readText().then(content =>{
+		data = JSON.parse(content);
+		dataRefreshed();
+	});
+}
 
 function refreshMenus(){
 	let menus = document.querySelectorAll("select");
@@ -70,18 +139,24 @@ function createClass(){
 	newClass.methods = getItems("class-methods-list")
 	newClass.inheritances = getItems("class-inheritances-list")
 	
+	emptyEntries();
+	document.getElementById("class-name-input").value = newClassName;
+
 	data[newClassName] = newClass;
 	classNames.push(newClassName)
 	createItem("class")
 	adoptDataChanges()
 }
 
+function emptyEntries(){
+	["name", "attribute", "method"].forEach(classProperty => document.getElementById(`class-${classProperty}-input`).value = '');
+	["attributes", "methods", "inheritances"].forEach(classProperty => document.getElementById(`class-${classProperty}-list`).innerHTML = '');
+}
+
 function deleteClass(className){
 	let classObj = data[className]
 
-	// EMPTY
-	document.querySelectorAll("input[type=text]").forEach(elem => elem.value = '');
-	["attributes", "methods", "inheritances"].forEach(classProperty => document.getElementById(`class-${classProperty}-list`).innerHTML = '');
+	emptyEntries();
 
 	// FILL
 	document.getElementById("class-name-input").value = className
@@ -112,14 +187,15 @@ function createItem(classProperty){
 	let listOfItem = `class-${classProperty}s-list`;
 	let newItem;
 	if (classProperty == "class"){
-		newItem = getInputClassName()
+		inputOfItem = `class-name-input`;
 		listOfItem = `created-classes-list`;
-	} else{
-		newItem = document.getElementById(inputOfItem).value
 	}
-	
+	newItem = document.getElementById(inputOfItem).value;
+	if (classProperty != "inheritance"){
+		document.getElementById(inputOfItem).value = '';
+	}
 	if(getItems(listOfItem).indexOf(newItem) != -1 || newItem == ''){
-		return
+		return;
 	}
 	
 	document.getElementById(listOfItem).innerHTML += `
@@ -140,9 +216,10 @@ function deleteItem(targetItem, classProperty){
 	if (classProperty == "inheritance"){
 		inputOfItem = `class-${classProperty}-menu`;	
 	}
-	if (classProperty != "class"){
-		document.getElementById(inputOfItem).value = targetItem
+	if (classProperty == "class"){
+		inputOfItem = `class-name-input`;
 	}
+	document.getElementById(inputOfItem).value = targetItem
 	let parent = document.getElementById(listOfItem);
 	for (let child of parent.children){
 		if (child.children[0].textContent == targetItem){
@@ -152,8 +229,12 @@ function deleteItem(targetItem, classProperty){
 	}
 }
 
-function adoptDataChanges(){
+function saveData(){
 	localStorage.setItem("UMLClassDiagramData", JSON.stringify(data));
+}
+
+function adoptDataChanges(){
+	saveData();
 	refreshMenus()
 	updateDiagram()
 }
@@ -177,77 +258,63 @@ function drawParallelLines(x, y){
 
 function drawArrow(x, y){
 	ctx.beginPath();
-	ctx.arc(x, y, 8, 0, 2*Math.PI)
+	ctx.arc(x, y, 6, 0, 2*Math.PI)
 	ctx.stroke()
 }
 
 function updateDiagram(){
-	ctx.fillStyle = "black"
+	ctx.fillStyle = "#111"
 	ctx.fillRect(0, 0, xmax, ymax)
 	ctx.fillStyle = "white"
 	ctx.strokeStyle = "white"
-	console.log(data)
 	for (let classObj of Object.values(data)){
-		console.log(classObj)
-		let classx = classObj.x
-		let classy = classObj.y
-		let height = classy;
-		drawLine(classx, height, classx + diagramWidth, height)
+		let classX = classObj.x
+		let classY = classObj.y
+		let height = classY;
+		drawLine(classX, height, classX + diagramWidth, height)
 		height += inlineSpace
 
-		drawParallelLines(classx, height)
+		drawParallelLines(classX, height)
 
-		drawText(classObj.name, classx + ((diagramWidth/12)*(classObj.name.length)/2), height)
+		drawText(classObj.name, classX + (diagramWidth/2) - ((diagramWidth/12)*(classObj.name.length)/2), height)
 		height += inlineSpace
 
-		drawParallelLines(classx, height)
+		drawParallelLines(classX, height)
 
-		drawLine(classx, height, classx + diagramWidth, height)
+		drawLine(classX, height, classX + diagramWidth, height)
 		height += inlineSpace
 
-		drawParallelLines(classx, height)
+		drawParallelLines(classX, height)
 
 		for (let attribute of classObj.attributes){
-			drawText(attribute, classx, height)
+			drawText(attribute, classX, height)
 			height += inlineSpace
 
-			drawParallelLines(classx, height)
+			drawParallelLines(classX, height)
 
 		}
-		drawLine(classx, height, classx + diagramWidth, height)
+		drawLine(classX, height, classX + diagramWidth, height)
 		height += inlineSpace
 
-		drawParallelLines(classx, height)
+		drawParallelLines(classX, height)
 
 		for (let method of classObj.methods){
-			drawText(method + "()", classx, height)
+			drawText(method + "()", classX, height)
 			height += inlineSpace
 
-			drawParallelLines(classx, height)
+			drawParallelLines(classX, height)
 
 		}
-		drawLine(classx, height, classx + diagramWidth, height)
-		height += inlineSpace
-
-		drawParallelLines(classx, height)
+		drawLine(classX, height, classX + diagramWidth, height)
 
 		for (let inheritance of classObj.inheritances){
-			ctx.strokeStyle = "cyan";
-			ctx.lineWidth = 4
-			drawLine(classx+diagramWidth/2, classy, data[inheritance].x+diagramWidth/2, data[inheritance].y)
-			drawArrow(data[inheritance].x+diagramWidth/2, data[inheritance].y)
-			ctx.strokeStyle = "white";
-			ctx.lineWidth = 2
-			
-			drawText(inheritance, classx, height)
-			height += inlineSpace
-
-			drawParallelLines(classx, height)
-
+			if (data[inheritance] != undefined){
+				ctx.strokeStyle = "cyan";
+				drawLine(classX+diagramWidth/2, classY, data[inheritance].x+diagramWidth/2, data[inheritance].y)
+				drawArrow(data[inheritance].x+diagramWidth/2, data[inheritance].y)
+				ctx.strokeStyle = "white";
+			}
 		}
-		drawLine(classx, height, classx + diagramWidth, height)
-
-		drawParallelLines(classx, height)
-
+		classObj.height = height - classY;
 	}	
 }

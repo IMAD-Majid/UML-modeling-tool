@@ -9,27 +9,18 @@
 			<tr>
 				<td>
 				<div>
-					<select id="selected-class-diagram">
-					</select>
-					<input type="range" min="0" max="100">
-					<input type="range" min="0" max="100">
-				</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div>
 					<div>
 						<input id="class-name-input" placeholder="Class name">
 					</div>
 					<div>
 						<div>
 							<hr>
+							<h4>Attributes</h4>
 							<input id="class-attribute-input" placeholder="Attribute">
 							<button onclick="createItem('attribute')"> + </button>
 						</div>
 						<div>
-							<h4>Attributes</h4>
+
 							<ul id="class-attributes-list">
 							</ul>
 						</div>
@@ -37,11 +28,12 @@
 					<div>
 						<div>
 							<hr>
+							<h4>Methods</h4>
 							<input id="class-method-input" placeholder="Method">
 							<button onclick="createItem('method')"> + </button>
 						</div>
 						<div>
-							<h4>Methods</h4>
+
 							<ul id="class-methods-list">
 							</ul>
 						</div>
@@ -49,60 +41,46 @@
 					<div>
 						<div>
 							<hr>
+							<h4>Inheritances</h4>
 							<select id="class-inheritance-menu">
 							</select>
 							<button onclick="createItem('inheritance')"> + </button>
 						</div>
 						<div>
-							<h4>Inheritances</h4>
+
 							<ul id="class-inheritances-list">
 							</ul>
 						</div>
 					</div>
 					<div>
 						<hr>
+						<h4>Classes</h4>
 						<button onclick="createClass()" id="creation-button">Create Class</button>
 						<hr>
 					</div>
 					<div>
-						<h4>Classes</h4>
+
 						<ul id="created-classes-list">
 						</ul>
 					</div>
 				</div>
 				</td>
 				<td>
-					<canvas width="1000px" height="560px" style="border:2px solid red"></canvas>
+					<canvas width="1000px" height="560px" style="border:1px solid white;"></canvas>
 					<script>
 						var canvas = document.querySelector("canvas");
 						var xmax = canvas.offsetWidth;
 						var ymax = canvas.offsetHeight;
-
-						let rangeInputs = document.querySelectorAll("input[type=range]");
-
-						rangeInputs[0].setAttribute("max", xmax)
-						rangeInputs[0].addEventListener("input", (e)=>{
-							let selectedClass = document.getElementById("selected-class-diagram").value;
-							if (selectedClass == ''){return}
-							data[selectedClass].x = Number(e.target.value)
-							console.log(e.target.value)
-							localStorage.setItem("UMLClassDiagramData", JSON.stringify(data));
-
-							updateDiagram()
-						})
-						rangeInputs[1].setAttribute("max", ymax)
-						rangeInputs[1].addEventListener("input", (e)=>{
-							let selectedClass = document.getElementById("selected-class-diagram").value;
-							if (selectedClass == ''){return}
-							data[selectedClass].y = Number(e.target.value)
-							localStorage.setItem("UMLClassDiagramData", JSON.stringify(data));
-
-							updateDiagram()
-						})
 					</script>
 				</td>
 			</tr>
 		</table>
-		<script src="script.js"></script>
+		<div id="export-import">
+			<button id="copyJSON" onclick="copyJSON()">Copy JSON</button>
+			<button onclick="updateClipboardReader()">Read Copied</button>
+			<button id="pasteJSON" onclick="pasteJSON()">Replace with Copied JSON</button>
+		</div>
+		<p id="clipboard-content"></p>
+		<script src="main.js"></script>
 	</body>
 </html>
