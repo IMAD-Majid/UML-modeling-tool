@@ -21,7 +21,7 @@ L’application sera exploitée par plusieurs types d’utilisateurs :
 
 - L’administrateur s’occupera de la mise à jour des régions, des races des chevaux, des utilisateurs et de leurs rôles.
 - Le responsable des inscriptions introduit les troupes, leurs cavaliers et leurs chevaux.
-- La manifestation se déroule sur plusieurs journées et le responsable de la programmation dresse le planning de la manifestation en spécifiant pour chaque troupe, - - les cavaliers et leurs montures. Il faut noter que les cavaliers peuvent changer de monture d’une journée à une autre.
+- La manifestation se déroule sur plusieurs journées et le responsable de la programmation dresse le planning de la manifestation en spécifiant pour chaque troupe, les cavaliers et leurs montures. Il faut noter que les cavaliers peuvent changer de monture d’une journée à une autre.
 - Les internautes peuvent consulter toutes les informations relatives aux troupes et au planning de déroulement de la manifestation.
 
 **Travail à faire** :
