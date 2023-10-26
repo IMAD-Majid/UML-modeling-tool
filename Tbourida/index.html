@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tbourida</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div>
+			<button onclick="logout()">Log out</button>
+		</div>
+		<select onclick="scheduleOf()">
+		</select>
+		<table id="planning">
+			<thead>
+				<tr>
+					<th>Knight</th>
+					<th>Horse</th>
+					<th>Troop</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+		<script src="connect.js"></script>
+		<script>
+			if (localStorage.getItem("useremail") == undefined){
+				location.href = "login.html";
+			}
+			selectElm = document.querySelector("select");
+			tableBodyElm = document.querySelector("tbody");
+			schedule = {};
+			
+			fetchData();
+			
+			function fetchData(){
+				selectElm.innerHTML = '';
+				tableBodyElm.innerHTML = '';
+				newMenuHTML = '';
+				
+				let knightFullName = {};
+				for (let k of knights){
+					knightFullName[k.email] = k.name + ' ' + k.fname;
+				}
+				
+				let knightTroop = {};
+				for (let t of troops){
+					for (let k of t.knights){
+						knightTroop[k.email] = t.name;
+					}
+				}
+				
+				for (let p of plans){
+					if (schedule[p.day] == undefined){
+						schedule[p.day] = [];
+					}
+					schedule[p.day].push([knightFullName[p.knightEmail], p.horseId, knightTroop[p.knightEmail]])
+				}
+				
+				for (let day of Object.keys(schedule)){
+					newMenuHTML += "<option>${day}</option>";
+				}
+				selectElm.innerHTML = newMenuHTML;
+			}
+			
+			function scheduleOf(){
+				let day = selectElm.value;
+				if (day == ''){return;}
+				tableBodyElm.innerHTML = '';
+
+				newTableHTML = '';
+				for (let entry of schedule[day]){
+					newTableHTML += "<tr><td>${entry[0]}</td><td>${entry[1]}</td><td><button onclick='infoOfTroop(\'${entry[2]}\')'>${entry[2]}</button></td></tr>";
+				}
+				
+				tableBodyElm.innerHTML = newTableHTML;
+			}
+			
+			function infoOfTroop(troop){
+				sessionStorage.setItem("troop", troop);
+				location.href = "troop info.html";
+			}
+			function logout(){
+				localStorage.removeItem("useremail");
+				location.href = "login.html";
+			}			
+		</script>
+	</body>
+</html>

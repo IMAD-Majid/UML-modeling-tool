@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tbourida</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<form>
+			<input id="email" type="email" placeholder="Email">
+			<input id="pw" placeholder="Password">
+			<button onclick="logIn()">Log In</button>
+		</form>
+		<a href="signup.html">New account</a>
+		
+		<script src="connect.js"></script>
+		<script>
+		
+		function logIn(){
+			let email = document.getElementById("email").value;
+			let password = document.getElementById("pw").value;
+			if (email == ''){
+				alert("Email is required!")
+				return
+			}
+			
+			for (let u of users){
+				if (u.email == email && u.password == password){
+					localStorage.setItem("useremail", email);
+					switch (u.role){
+						case "Internaut":
+							location.href = "index.html";
+							return;
+						case "Planner":
+							location.href = "planner index.html";
+							return;
+						case "Troop Inscriptor":
+							location.href = "troop inscriptor index.html";
+							return;
+						case "Knight":
+							location.href = "knight index.html";
+							return;
+						case "Admin":
+							location.href = "admin index.html";
+							return;
+					}
+				}
+			}
+			alert("Email does not exist!");
+		}
+		
+		</script>
+	</body>
+</html>

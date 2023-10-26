@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tbourida</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<a href="admin index.html">Admin panel</a>
+		<form>
+			<input id="email" type="email" placeholder="Email">
+			<input id="pw" placeholder="Password">
+			<input id="pwconfirmation" placeholder="Password confirmation">
+			<select style="display:block;margin:1em 0;">
+				<option>Admin</option>
+				<option>Planner</option>
+				<option>Troop Inscriptor</option>
+				<option>Removed</option>
+			</select>
+			<button onclick="setUser()">Set</button>
+		</form>
+		<a href="login.html">Re-login</a>
+		
+		<script src="connect.js"></script>
+		<script>
+		
+		function setUser(){
+			let email = document.getElementById("email").value;
+			let password = document.getElementById("pw").value;
+			let pwconfirmation = document.getElementById("pwconfirmation").value;
+			let role = document.querySelector("select").value;
+			
+			if (email == ''){return}
+			if (password != pwconfirmation){return}
+
+			for (let u of users){
+				if (u.email == email){
+					if (role == "Removed"){
+						users.filter((item)=>{return u.email != email})
+						saveDataUsers();
+						location.href = "admin users.html";
+						return;
+					} else{
+						u.password = password;
+						u.role = role;
+						saveDataUsers();
+						location.href = "admin users.html";
+						return;
+					}
+				}
+			}
+			
+			users.push(new User(email, password, role));
+			saveDataUsers();
+			location.href = "admin users.html";
+		}
+		
+		</script>
+	</body>
+</html>

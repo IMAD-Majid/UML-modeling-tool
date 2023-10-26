@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tbourida</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<form>
+			<input id="email" type="email" placeholder="Email">
+			<input id="pw" placeholder="Password">
+			<input id="pwconfirmation" placeholder="Password confirmation">
+			<button onclick="newUser()">Sign up</button>
+		</form>
+		<a href="login.html">Log in</a>
+		
+		<script src="connect.js"></script>
+		<script>
+		
+		function newUser(){
+			let email = document.getElementById("email").value;
+			let password = document.getElementById("pw").value;
+			let pwconfirmation = document.getElementById("pwconfirmation").value;
+			if (email == ''){return}
+			if (password != pwconfirmation){return}
+
+			for (let u of users){
+				if (u.email == email){
+					alert("The email already exists");
+					return;
+				}
+			}
+			
+			users.push(new User(email, password));
+			saveDataUsers();
+			localStorage.setItem("useremail", email);
+			location.href = "index.html";
+		}
+		
+		</script>
+	</body>
+</html>
